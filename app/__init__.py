@@ -3,7 +3,7 @@ from flask import Flask
 
 # db = SQLAlchemy()
 
-from .views import bp
+from .routes import bp
 
 def create_app():
     # Create variable and load configuration from config.py
