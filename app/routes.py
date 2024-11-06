@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, jsonify
 import subprocess
 import os
-import nbformat
-from nbclient import NotebookClient
+from app.scripts.publicpositions import get_public_positions
+# import nbformat
+# from nbclient import NotebookClient
 
 bp = Blueprint('main', __name__)
 
@@ -10,15 +11,29 @@ bp = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
-@bp.route('/public-positions', method=['POST'])
-def public_positions():
-    nb_path = 'notebooks/publicPositions.ipynb'
-    with open(nb_path) as f:
-        nb = nbformat.read(f, as_version=4)
-    client = NotebookClient(nb)
-    client.execute()
+@bp.route('/loadPositions')
+def loadPositions():
+    return render_template('publicPositions.html')
 
-    return render_template('publicpositions.html', results = nb['cell_numbers'])
+@bp.route('/fetch-public-positions', methods=['POST'])
+def fetch_public_positions():
+    data = get_public_positions()
+    return jsonify(data)
+    # return render_template('publicPositions.html', data=data)
+
+
+# @bp.route('/runPositions', method=['POST'])
+# def public_positions():
+#     nb_path = 'notebooks/publicPositions.ipynb'
+#     with open(nb_path) as f:
+#         nb = nbformat.read(f, as_version=4)
+#     client = NotebookClient(nb)
+#     client.execute()
+
+#     output = {}
+#     for cell in 
+
+# return render_template('publicPositions.html', results = nb['cell_numbers'])
 
 # from flask import Blueprint, render_template, request, redirect, url_for, flash
 
