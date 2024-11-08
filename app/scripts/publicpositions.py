@@ -16,24 +16,25 @@ Original file is located at
 
 import requests
 import openpyxl
+import time
 
 # Define constants for API
-API_KEY = '3UBUGQ9UI4WEECY9'
-URL = 'https://www.alphavantage.co/query'
+API_KEY = 'csn4hk1r01qqapai49ogcsn4hk1r01qqapai49p0'
+BASE_URL = 'https://finnhub.io/api/v1/quote'
 FILE_PATH = '/Users/harrisonstone/WebApp/app/data/PricePositions.xlsx'  # Update this to the local file path
 
 # Define a function to get stock price
 def get_stock_price(symbol):
-    params = {
-        'function': 'time_series_daily',
-        'symbol': symbol,
-        'apikey': API_KEY,
-        'outputsize': 'compact'
-    }
-    response = requests.get(URL, params=params)
+    # Construct the API URL for the specific stock symbol
+    url = f"{BASE_URL}?symbol={symbol}&token={API_KEY}"
+    response = requests.get(url)
     data = response.json()
-    latest_date = list(data['Time Series (Daily)'].keys())[0]
-    return float(data['Time Series (Daily)'][latest_date]['4. close'])
+    
+    # Check if the response contains the necessary data
+    if 'c' in data:
+        return float(data['c'])  # 'c' is the current (real-time) price
+    else:
+        raise ValueError(f"Unable to fetch price for {symbol}. Response: {data}")
 
 # Define a function to read data from Excel
 def read_excel(file_path, cell):

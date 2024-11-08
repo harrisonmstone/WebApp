@@ -1,0 +1,16 @@
+<!-- automations.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Automations</title>
+</head>
+<body>
+    <h1>Select an Excel File for Quarterly Reports</h1>
+    <form action="{{ url_for('upload_quarterly_report') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="excel_file" accept=".xlsx">
+        <button type="submit">Upload and Run Script</button>
+    </form>
+</body>
+</html>
+
