@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, jsonify
+from flask_login import login_required
 import subprocess
 import os
 from app.scripts.publicpositions import get_public_positions
@@ -15,6 +16,7 @@ def index():
     return render_template('index.html')
 
 @bp.route('/loadPositions')
+@login_required
 def loadPositions():
     return render_template('publicPositions.html')
 
@@ -24,5 +26,6 @@ def fetch_public_positions():
     return jsonify(data)
 
 @bp.route('/automations')
+@login_required
 def automations():
     return render_template('automations.html')
