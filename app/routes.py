@@ -2,13 +2,13 @@ from flask import Blueprint, render_template, redirect, url_for, jsonify
 import subprocess
 import os
 from app.scripts.publicpositions import get_public_positions
-from app.scripts.capital_accounts_automated import capital_accounts_automated
+# from app.scripts.capital_accounts_automated import capital_accounts_automated
 # import nbformat
 # from nbclient import NotebookClient
 
 bp = Blueprint('main', __name__)
 
-UPLOAD_FOLDER = 'app/uploads'
+# UPLOAD_FOLDER = 'app/uploads'
 
 @bp.route('/')
 def index():
