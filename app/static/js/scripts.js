@@ -7,6 +7,35 @@
 // Scripts
 // 
 
+document.getElementById('loadDataBtn').addEventListener('click', function() {
+    fetch('/fetch-public-positions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.getElementById('positionsTableBody');
+        tableBody.innerHTML = '';  // Clear any existing data
+
+        data.forEach(position => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${position.position}</td>
+                <td>${position.shares}</td>
+                <td>${position.price_per_share}</td>
+                <td>${position.total_value}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Display the table now that it has data
+        document.getElementById('positionsTable').style.display = 'table';
+    })
+    .catch(error => console.error('Error:', error));
+});
+
 window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
