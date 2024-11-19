@@ -1,8 +1,11 @@
 from flask import Flask
 from .models import db, User
 from .routes import bp
+from flask_migrate import Migrate
 from config import Config
 from flask_login import LoginManager
+
+migrate = Migrate()
 
 def create_app():
     # Create variable and load configuration from config.py
@@ -11,6 +14,7 @@ def create_app():
 
     #Initialize database
     db.init_app(app)
+    migrate.init_app(app, db)
 
     #Initialize Login Manager
     login_manager = LoginManager()

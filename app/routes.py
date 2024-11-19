@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, jsonify, request, flash
 from flask_login import login_user, logout_user, login_required, fresh_login_required, current_user
 from .models import db, User
-from app import app
 from app.scripts.publicpositions import get_public_positions
 
 bp = Blueprint('main', __name__)
